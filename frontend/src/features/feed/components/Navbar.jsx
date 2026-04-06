@@ -2,7 +2,7 @@ import { useContext, useState, useEffect, useMemo, memo } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../auth/context/AuthContext";
 import { useSocket } from "../../../context/SocketContext";
-// import { getNotifications } from "../../notification/services/notificationService";
+import { getNotifications } from "../../notification/services/notificationService";
 import { getUnreadCount } from "../../messages/services/messageService";
 import "../styles/feed.css";
 

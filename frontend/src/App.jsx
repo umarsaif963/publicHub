@@ -43,7 +43,7 @@ function App() {
           />
           <Route 
             path="/" 
-            element={<Navigate to={user ? "/feed" : "/login"} />} 
+            element={<Navigate to="/login" />} 
           />
         </Routes>
       </div>

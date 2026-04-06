@@ -13,20 +13,30 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       const token = localStorage.getItem("token");
+      if (!token) return;
+
       const newSocket = io("http://localhost:3001", {
         auth: { token },
       });
-
-      setSocket(newSocket);
 
       newSocket.on("connect", () => {
         console.log("Socket Connected:", newSocket.id);
       });
 
+      newSocket.on("connect_error", (err) => {
+        console.error("Socket connection error:", err.message);
+        newSocket.close();
+        setSocket(null);
+      });
+
+      setSocket(newSocket);
+
       return () => {
         newSocket.close();
         setSocket(null);
       };
+    } else {
+      setSocket(null);
     }
   }, [user]);
 
