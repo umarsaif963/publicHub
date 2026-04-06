@@ -64,7 +64,11 @@ const StoriesBar = ({ currentUser }) => {
   };
 
   const handleCreateStory = () => {
+    console.log("=== handleCreateStory called ===");
+    console.log("currentUser:", currentUser);
+    console.log("showCreateModal before:", showCreateModal);
     setShowCreateModal(true);
+    console.log("showCreateModal after set:", true);
   };
 
   const handleStoryCreated = () => {
@@ -88,9 +92,11 @@ const StoriesBar = ({ currentUser }) => {
     );
   }
 
-  const allUsers = myStories.length > 0 
-    ? [{ user: currentUser, stories: myStories, isCurrentUser: true }, ...storiesData]
-    : storiesData;
+  const currentUserStories = myStories.length > 0 
+    ? [{ user: currentUser, stories: myStories, isCurrentUser: true }]
+    : [{ user: currentUser, stories: [], isCurrentUser: true, noStories: true }];
+
+  const allUsers = [...currentUserStories, ...storiesData];
 
   return (
     <div className="stories-bar glass">
@@ -104,19 +110,9 @@ const StoriesBar = ({ currentUser }) => {
             onClick={() => handleOpenStory(userStory.stories)}
             onCreateClick={handleCreateStory}
             currentUserId={currentUser?.id}
+            noStories={userStory.noStories}
           />
         ))}
-        {!hasActiveStories && (
-          <button className="story-ring add-story" onClick={handleCreateStory}>
-            <div className="add-story-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <line x1="12" y1="5" x2="12" y2="19"/>
-                <line x1="5" y1="12" x2="19" y2="12"/>
-              </svg>
-            </div>
-            <span className="story-username">Your Story</span>
-          </button>
-        )}
       </div>
 
       {activeStory && (
@@ -143,8 +139,26 @@ const StoriesBar = ({ currentUser }) => {
   );
 };
 
-const StoryRing = ({ user, stories, isCurrentUser, onClick, onCreateClick, currentUserId }) => {
+const StoryRing = ({ user, stories, isCurrentUser, onClick, onCreateClick, currentUserId, noStories }) => {
   const hasUnviewed = stories.some(s => !s.viewers?.some(v => v._id === currentUserId || v === currentUserId));
+  
+  if (isCurrentUser && noStories) {
+    return (
+      <button 
+        className="story-ring add-story"
+        onClick={onCreateClick}
+        title="Create your story"
+      >
+        <div className="add-story-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <span className="story-username">Your Story</span>
+      </button>
+    );
+  }
   
   return (
     <button 
@@ -164,6 +178,7 @@ const StoryRing = ({ user, stories, isCurrentUser, onClick, onCreateClick, curre
 };
 
 const CreateStoryModal = ({ onClose, onSuccess }) => {
+  console.log("=== CreateStoryModal rendering ===");
   const [mediaFile, setMediaFile] = useState(null);
   const [mediaType, setMediaType] = useState('image');
   const [loading, setLoading] = useState(false);
