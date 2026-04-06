@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Navbar from "../components/Navbar";
 import UploadModal from "../components/UploadModal";
 import PostCard from "../components/PostCard";
+import StoriesBar from "../../story/components/StoriesBar";
 import { getPosts } from "../services/postService";
 import { useSocket } from "../../../context/SocketContext";
+import { AuthContext } from "../../auth/context/AuthContext";
 import "../styles/feed.css";
 
 const FeedPage = () => {
   const socket = useSocket();
+  const { user: currentUser } = useContext(AuthContext);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -66,6 +69,7 @@ const FeedPage = () => {
     <div className="feed-layout">
       <Navbar onUploadClick={() => setIsUploadModalOpen(true)} />
       <main className="feed-content">
+        <StoriesBar currentUser={currentUser} />
         <header className="feed-header">
           <h1>Public Hub</h1>
         </header>
