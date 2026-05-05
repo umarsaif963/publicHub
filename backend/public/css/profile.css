@@ -1,0 +1,365 @@
+:root {
+    --primary-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    --ig-blue: #0095f6;
+    --border-color: #dbdbdb;
+    --text-dark: #262626;
+    --text-grey: #8e8e8e;
+    --bg: #fafafa;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text-dark);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== TOP NAV ===== */
+.top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.top-nav span {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.back-btn, .logout-btn {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: var(--text-dark);
+    padding: 4px;
+}
+
+.logout-btn {
+    color: #ed4956;
+}
+
+/* ===== PROFILE CONTAINER ===== */
+.profile-container {
+    padding: 20px;
+}
+
+/* ===== PROFILE HEADER ===== */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 16px;
+}
+
+/* Avatar */
+.avatar-wrapper {
+    flex-shrink: 0;
+}
+
+.avatar-ring {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    padding: 3px;
+}
+
+.avatar-ring img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    background: #fff;
+}
+
+/* Stats */
+.profile-stats {
+    display: flex;
+    gap: 24px;
+    flex: 1;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat span {
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: block;
+}
+
+.stat p {
+    font-size: 13px;
+    color: var(--text-dark);
+    margin-top: 2px;
+}
+
+/* Profile Info */
+.profile-info {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.private-badge {
+    font-size: 12px;
+    color: var(--text-grey);
+}
+
+/* Edit Button */
+.edit-btn {
+    width: 100%;
+    padding: 7px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background 0.2s;
+}
+
+.edit-btn:hover {
+    background: #f0f0f0;
+}
+
+/* ===== POSTS SECTION ===== */
+.posts-divider {
+    text-align: center;
+    padding: 12px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 4px;
+    color: var(--text-dark);
+    font-size: 1.2rem;
+}
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+}
+
+.post-thumb {
+    aspect-ratio: 1;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    background: #efefef;
+}
+
+.post-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.2s;
+}
+
+.post-thumb:hover img {
+    opacity: 0.8;
+}
+
+/* No image post */
+.post-thumb .no-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #efefef;
+    color: var(--text-grey);
+    font-size: 12px;
+    padding: 8px;
+    text-align: center;
+}
+
+/* Like count overlay */
+.post-thumb .like-overlay {
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.no-posts {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-grey);
+    font-size: 14px;
+}
+
+/* ===== EDIT MODAL ===== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 20px;
+}
+
+.modal-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.modal-header button {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: var(--text-dark);
+}
+
+/* Pic Upload */
+.pic-upload-area {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.pic-upload-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+}
+
+.pic-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 11px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.pic-overlay i {
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+}
+
+.pic-upload-area:hover .pic-overlay {
+    opacity: 1;
+}
+
+/* Input */
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-grey);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.input-group input:focus {
+    border-color: var(--text-dark);
+}
+
+/* Save Button */
+.save-btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--ig-blue);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.save-btn:hover {
+    opacity: 0.9;
+}
+
+.save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Loading skeleton */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.2s infinite;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+    <!-- ===== TOP NAV ===== -->
+    <div class="top-nav">
+        <button class="back-btn" onclick="window.location.href='home.html'">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <span id="nav-username">Profile</span>
+        <button class="logout-btn" onclick="logout()">
+            <i class="bi bi-box-arrow-right"></i>
+        </button>
+    </div>
+
+    <!-- ===== PROFILE HEADER ===== -->
+    <div class="profile-container">
+        <div class="profile-header">
+
+            <!-- Avatar -->
+            <div class="avatar-wrapper">
+                <div class="avatar-ring">
+                    <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRadJ-YmNxJTg6v9iO22fzR_65KenYJHFB5zg&s" alt=""> -->
+                    <img id="profile-pic" src="https://via.placeholder.com/100" alt="Profile Pic" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRadJ-YmNxJTg6v9iO22fzR_65KenYJHFB5zg&s';">
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="profile-stats">
+                <div class="stat">
+                    <span id="post-count">0</span>
+                    <p>Posts</p>
+                </div>
+                <div class="stat">
+                    <span id="followers-count">0</span>
+                    <p>Followers</p>
+                </div>
+                <div class="stat">
+                    <span id="following-count">0</span>
+                    <p>Following</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Username + Edit Button -->
+        <div class="profile-info">
+            <h3 id="profile-username">Loading...</h3>
+            <span id="private-badge" class="private-badge" style="display:none;">🔒 Private</span>
+        </div>
+
+        <!-- Edit Profile Button -->
+        <button class="edit-btn" onclick="openEditModal()">
+            <i class="bi bi-pencil"></i> Edit Profile
+        </button>
+
+        <!-- ===== POSTS GRID ===== -->
+        <div class="posts-section">
+            <div class="posts-divider">
+                <i class="bi bi-grid-3x3"></i>
+            </div>
+            <div id="posts-grid" class="posts-grid">
+                <!-- Posts yahan load honge -->
+            </div>
+            <p id="no-posts" class="no-posts" style="display:none;">No posts yet</p>
+        </div>
+    </div>
+
+    <!-- ===== EDIT MODAL ===== -->
+    <div id="edit-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Edit Profile</h3>
+                <button onclick="closeEditModal()"><i class="bi bi-x-lg"></i></button>
+            </div>
+
+            <!-- Profile Pic Preview -->
+            <div class="pic-upload-area" onclick="document.getElementById('pic-input').click()">
+                <img id="pic-preview" src="https://via.placeholder.com/80" alt="Preview">
+                <div class="pic-overlay">
+                    <i class="bi bi-camera"></i>
+                    <span>Change Photo</span>
+                </div>
+            </div>
+            <input type="file" id="pic-input" accept="image/*" style="display:none;" onchange="previewPic(event)">
+
+            <!-- Username -->
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" id="edit-username" placeholder="Enter new username">
+            </div>
+
+            <button class="save-btn" onclick="saveProfile()">
+                <span id="save-btn-text">Save Changes</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="js/profile.js"></script>
+</body>
+</html>

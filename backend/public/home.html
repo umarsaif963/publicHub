@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Hub | Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <nav class="navbar navbar-light bg-white border-bottom fixed-top">
+    <div class="container d-flex justify-content-between align-items-center" style="max-width:600px;">
+      <a class="navbar-brand fw-bold fs-4" href="home.html">Public Hub</a>
+      <div class="nav-icons d-flex gap-3">
+
+        <!-- Message icon with unread badge -->
+        <a href="message.html" class="text-dark fs-4 position-relative">
+          <i class="bi bi-chat-dots"></i>
+          <span id="msg-badge"
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                style="display:none; font-size:10px;">
+          </span>
+        </a>
+
+        <a href="notification.html" class="text-dark fs-4 position-relative">
+          <i class="bi bi-heart"></i>
+          <span id="notif-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;font-size:10px;"></span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- POST FEED -->
+  <main class="container" style="max-width:600px;margin-top:70px;margin-bottom:70px;">
+    <div id="post-feed"></div>
+  </main>
+
+  <!-- BOTTOM NAVBAR -->
+  <nav class="navbar navbar-light bg-white border-top fixed-bottom">
+    <div class="container d-flex justify-content-around align-items-center">
+      <a href="home.html" class="text-dark fs-3"><i class="bi bi-house-door-fill"></i></a>
+      <button id="open-upload-modal" class="btn p-0 text-dark fs-3"><i class="bi bi-plus-square"></i></button>
+      <a href="profile.html" class="text-dark fs-3"><i class="bi bi-person-circle"></i></a>
+    </div>
+  </nav>
+
+  <!-- UPLOAD MODAL -->
+  <div id="uploadModal" class="custom-modal">
+    <div class="modal-content-box">
+      <div class="modal-header-custom">
+        <span class="fw-bold">Create New Post</span>
+        <span class="close-modal" id="closeUploadModal">&times;</span>
+      </div>
+      <div class="modal-body-custom">
+        <div id="uploadDropzone" class="dropzone">
+          <i class="bi bi-camera fs-1"></i>
+          <p class="mt-2 text-muted small">Click to select photo</p>
+          <input type="file" id="uploadImage" hidden accept="image/*">
+          <div id="imagePreview"></div>
+        </div>
+        <div class="post-inputs mt-3">
+          <textarea id="postDescription" class="form-control mb-2" placeholder="Write a description..." rows="3"></textarea>
+          <input type="text" id="postHashtags" class="form-control" placeholder="#hashtags (e.g. #coding #mern)">
+          <button id="postBtn" class="btn btn-primary w-100 mt-3 fw-bold">Share Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT POST MODAL -->
+  <div id="editPostModal" class="custom-modal">
+    <div class="modal-content-box">
+      <div class="modal-header-custom">
+        <span class="fw-bold">Edit Post</span>
+        <span class="close-modal" id="closeEditPostModal">&times;</span>
+      </div>
+      <div class="modal-body-custom">
+        <input type="hidden" id="editPostId">
+        <textarea id="editPostDescription" class="form-control mb-2" placeholder="Edit description..." rows="3"></textarea>
+        <input type="text" id="editPostHashtag" class="form-control mb-2" placeholder="#hashtags">
+        <div id="editDropzone" class="dropzone mb-2">
+          <i class="bi bi-camera fs-1"></i>
+          <p class="mt-2 text-muted small">Click to change photo (optional)</p>
+          <input type="file" id="editImage" hidden accept="image/*">
+          <div id="editImagePreview"></div>
+        </div>
+        <button id="saveEditPostBtn" class="btn btn-primary w-100 fw-bold">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/home.js"></script>
+
+  <!-- Message badge load karne ka script -->
+  <script>
+    (async function loadMessageBadge() {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const res = await fetch("http://localhost:3001/messages/unread-count", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        const data = await res.json();
+        const count = data.count || 0;
+        const badge = document.getElementById("msg-badge");
+
+        if (count > 0) {
+          badge.textContent = count > 99 ? "99+" : count;
+          badge.style.display = "inline";
+        } else {
+          badge.style.display = "none";
+        }
+      } catch (err) {
+        console.error("Message badge error:", err);
+      }
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications - Public Hub</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/notification.css">
+</head>
+<body>
+
+  <!-- TOP BAR — back button only -->
+  <div class="notif-topbar">
+    <a href="home.html" class="back-btn">
+      <i class="bi bi-arrow-left"></i>
+    </a>
+    <span class="notif-title">Notifications</span>
+  </div>
+
+  <!-- NOTIFICATIONS FEED -->
+  <div class="notif-feed" id="notificationsFeed">
+    <div class="notif-loading" id="notifLoading">
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/notification.js"></script>
+</body>
+</html>

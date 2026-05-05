@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Hub | Messages</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/message.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+    <div class="instagram-container">
+        <!-- ===== SIDEBAR ===== -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <button class="back-home-btn" onclick="window.location.href='home.html'">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <h3>Messages</h3>
+                <i class="bi bi-pencil-square" style="font-size: 1.2rem; cursor: pointer;"></i>
+            </div>
+
+            <!-- Search Box -->
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="user-search" placeholder="Search friends...">
+                </div>
+            </div>
+
+            <!-- Tabs: Primary (chats) | General (requests) -->
+            <div class="tabs">
+                <button class="tab-btn active" id="chats-btn" onclick="showTab('chats')">Primary</button>
+                <button class="tab-btn" id="req-btn" onclick="showTab('requests')">
+                    Requests <span id="req-count" class="req-badge" style="display:none;">0</span>
+                </button>
+            </div>
+
+            <!-- Chats List Tab -->
+            <div id="chats-tab" class="tab-content scrollable"></div>
+
+            <!-- Requests Tab -->
+            <div id="requests-tab" class="tab-content scrollable" style="display: none;"></div>
+        </div>
+
+        <!-- ===== MAIN CHAT AREA ===== -->
+        <div class="main-chat">
+
+            <!-- Empty State (no chat selected) -->
+            <div id="no-chat-selected" class="empty-state">
+                <div class="icon-circle">
+                    <i class="bi bi-chat-heart"></i>
+                </div>
+                <h2>Your Messages</h2>
+                <p>Send a message to start a chat.</p>
+                <button class="primary-btn" onclick="document.getElementById('user-search').focus()">
+                    Send Message
+                </button>
+            </div>
+
+            <!-- Active Chat Window -->
+            <div id="active-chat" class="chat-window" style="display: none; flex-direction: column; height: 100%;">
+
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div class="header-left">
+                        <div class="avatar-gradient">
+                            <div class="avatar-inner" id="chat-avatar"></div>
+                        </div>
+                        <div>
+                            <h4 id="current-user-name">Username</h4>
+                            <span class="status-text" id="chat-status">Active now</span>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <i class="bi bi-telephone"></i>
+                        <i class="bi bi-camera-video"></i>
+                        <i class="bi bi-info-circle"></i>
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                <div id="chat-messages" class="message-container" style="display:flex; flex-direction:column;"></div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div class="input-wrapper">
+                        <i class="bi bi-emoji-smile"></i>
+                        <input type="text" id="msg-input" placeholder="Message..." />
+                        <div class="input-actions">
+                            <i class="bi bi-image"></i>
+                            <i class="bi bi-heart"></i>
+                            <button id="send-btn">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/message.js"></script>
+</body>
+
+</html>

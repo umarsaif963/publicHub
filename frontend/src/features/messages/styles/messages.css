@@ -1,0 +1,247 @@
+.messages-layout {
+  display: flex;
+  height: calc(100vh - 40px);
+  max-width: 1200px;
+  margin: 20px auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.messages-sidebar {
+  width: 350px;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.back-btn-simple {
+  color: var(--text-primary);
+}
+
+.search-container {
+  padding: 15px;
+  position: relative;
+}
+
+.search-input-msg {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.search-results-msg {
+  position: absolute;
+  top: 100%;
+  left: 15px;
+  right: 15px;
+  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 5px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.search-item-msg {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-item-msg:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.search-item-msg img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.conversations-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.conv-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.conv-item:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.conv-item.active {
+  background: rgba(255,255,255,0.05);
+}
+
+.conv-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.conv-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.conv-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.conv-top .username {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.unread-badge {
+  background: var(--error-color);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.last-msg {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0,0,0,0.1);
+}
+
+.chat-header {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.chat-header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 15px;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.message-bubble.sent {
+  align-self: flex-end;
+  background: var(--accent-color);
+  color: white;
+  border-bottom-right-radius: 2px;
+}
+
+.message-bubble.received {
+  align-self: flex-start;
+  background: rgba(255,255,255,0.08);
+  color: var(--text-primary);
+  border-bottom-left-radius: 2px;
+}
+
+.msg-time {
+  display: block;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  margin-top: 4px;
+  text-align: right;
+}
+
+.message-bubble.received .msg-time {
+  text-align: left;
+}
+
+.message-input-form {
+  padding: 20px;
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+.message-input-form input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-color);
+  padding: 12px 15px;
+  border-radius: 10px;
+  color: var(--text-primary);
+}
+
+.message-input-form button {
+  background: var(--accent-color);
+  color: white;
+  padding: 0 20px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.no-chat-selected {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .messages-layout {
+    height: 100vh;
+    margin: 0;
+    border-radius: 0;
+  }
+  .messages-sidebar {
+    width: 100%;
+    display: (selectedUser ? 'none' : 'flex'); /* logic needed in JS */
+  }
+}
